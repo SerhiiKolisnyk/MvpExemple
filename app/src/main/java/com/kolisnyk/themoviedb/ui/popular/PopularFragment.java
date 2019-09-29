@@ -7,22 +7,38 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.kolisnyk.themoviedb.R;
+import com.kolisnyk.themoviedb.data.network.model.Movie;
 import com.kolisnyk.themoviedb.data.network.model.MovieListResponse;
 import com.kolisnyk.themoviedb.di.component.ActivityComponent;
 import com.kolisnyk.themoviedb.ui.base.BaseFragment;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PopularFragment extends BaseFragment implements PopularMvpView {
+public class PopularFragment extends BaseFragment implements PopularMvpView, PopularAdapter.PopularCallback {
 
     public static final String TAG = "PopularFragment";
 
     @Inject
     PopularMvpPresenter<PopularMvpView, PopularMvpInteractor> mPresenter;
+
+    @BindView(R.id.popular_recycler_view)
+    RecyclerView mRecyclerView;
+
+    @Inject
+    LinearLayoutManager mLayoutManager;
+
+    @Inject
+    PopularAdapter popularAdapter;
 
     public static PopularFragment newInstance() {
         Bundle args = new Bundle();
@@ -42,17 +58,33 @@ public class PopularFragment extends BaseFragment implements PopularMvpView {
             component.inject(this);
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
+            popularAdapter.setCallback(this);
         }
         return view;
     }
 
+
     @Override
     protected void setUp(View view) {
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(popularAdapter);
         mPresenter.onViewPrepared();
     }
 
     @Override
-    public void updateList(MovieListResponse movieListResponse) {
-        Toast.makeText(getContext(), "DONE !!! ", Toast.LENGTH_SHORT).show();
+    public void updateList(@Nullable List<Movie> movieList) {
+        popularAdapter.setMovieList(movieList);
+    }
+
+    @Override
+    public void onClick(int id) {
+
+    }
+
+    @Override
+    public void onRetry() {
+        mPresenter.onViewPrepared();
     }
 }

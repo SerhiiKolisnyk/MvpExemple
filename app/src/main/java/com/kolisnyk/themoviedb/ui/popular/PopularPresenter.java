@@ -22,7 +22,6 @@ public class PopularPresenter<V extends PopularMvpView, I extends PopularMvpInte
 
     @Override
     public void onViewPrepared() {
-
         getCompositeDisposable().add(getInteractor()
                 .getPopularMovies()
                 .subscribeOn(getSchedulerProvider().io())
@@ -31,9 +30,8 @@ public class PopularPresenter<V extends PopularMvpView, I extends PopularMvpInte
                     @Override
                     public void accept(@NonNull MovieListResponse movieListResponse)
                             throws Exception {
-                        Log.d(TAG, "accept: movieListResponse"+movieListResponse);
                         if (movieListResponse != null) {
-                            getMvpView().updateList(movieListResponse);
+                            getMvpView().updateList(movieListResponse.getResults());
                         }
 
                     }
@@ -45,7 +43,8 @@ public class PopularPresenter<V extends PopularMvpView, I extends PopularMvpInte
                             return;
                         }
                         // handle the error here
-                        getMvpView().showMessage("ERROR:"+throwable.getMessage());
+                        getMvpView().showMessage("No internet connection");
+                        getMvpView().updateList(null);
                     }
                 }));
     }

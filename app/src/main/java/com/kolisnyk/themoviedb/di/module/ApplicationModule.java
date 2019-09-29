@@ -11,6 +11,7 @@ import com.kolisnyk.themoviedb.data.network.RestApiManager;
 import com.kolisnyk.themoviedb.di.qualifier.ApiInfo;
 import com.kolisnyk.themoviedb.di.qualifier.ApplicationContext;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -42,9 +43,16 @@ public class ApplicationModule {
     }
 
     @Provides
-    @ApiInfo
+    @Named("ApiKey")
     String provideApiKey() {
         return "5f496cfa82123e175c0cdd43b1ff0ac2";
+    }
+
+    @Provides
+    @Singleton
+    @Named("BaseUrl")
+    String provideBaseUrl() {
+        return "http://api.themoviedb.org/3/";
     }
 
     @Provides
@@ -52,6 +60,7 @@ public class ApplicationModule {
     DataManager provideDataManager(DataManagerImpl mDataManager) {
         return mDataManager;
     }
+
     @Provides
     @Singleton
     RestApiHelper provideRestApiHelper(RestApiManager restApiManager) {

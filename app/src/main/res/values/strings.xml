@@ -14,8 +14,11 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="typical_error">Something is really bad.</string>
+    <string name="please_retry">Please retry</string>
+    <string name="retry">RETRY</string>
 
     <!--Drawer-->
     <string name="open_drawer">Drawer Open</string>
     <string name="close_drawer">Drawer Close</string>
+    <string name="msg_error_emty_holder">There was an error loading data</string>
 </resources>
