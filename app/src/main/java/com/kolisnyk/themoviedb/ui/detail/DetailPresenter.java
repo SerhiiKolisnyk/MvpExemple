@@ -3,7 +3,6 @@ package com.kolisnyk.themoviedb.ui.detail;
 import androidx.annotation.NonNull;
 
 import com.kolisnyk.themoviedb.data.network.model.MovieDetailResponse;
-import com.kolisnyk.themoviedb.data.network.model.MovieListResponse;
 import com.kolisnyk.themoviedb.ui.base.BasePresenter;
 import com.kolisnyk.themoviedb.utils.rx.SchedulerProvider;
 
@@ -16,7 +15,7 @@ public class DetailPresenter <V extends DetailMvpView, I extends DetailMvpIntera
         extends BasePresenter<V, I> implements DetailMvpPresenter<V, I>{
 
     @Inject
-    public DetailPresenter(I mvpInteractor, SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable) {
+    DetailPresenter(I mvpInteractor, SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable) {
         super(mvpInteractor, schedulerProvider, compositeDisposable);
     }
 
@@ -26,24 +25,14 @@ public class DetailPresenter <V extends DetailMvpView, I extends DetailMvpIntera
                 .getMovieDetailResponse(idOfFilm)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<MovieDetailResponse>() {
-                    @Override
-                    public void accept(@io.reactivex.annotations.NonNull MovieDetailResponse movieDetailResponse)
-                            throws Exception {
-                        getMvpView().updateInfo(movieDetailResponse);
-
+                .subscribe(movieDetailResponse -> getMvpView().updateInfo(movieDetailResponse),
+                        throwable -> {
+                    if (!isViewAttached()) {
+                        return;
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@io.reactivex.annotations.NonNull Throwable throwable)
-                            throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-                        // handle the error here
-                        getMvpView().showMessage("No internet connection");
-                        getMvpView().updateInfo(null);
-                    }
+                    // handle the error here
+                    getMvpView().showMessage("No internet connection");
+                    getMvpView().updateInfo(null);
                 }));
     }
 }

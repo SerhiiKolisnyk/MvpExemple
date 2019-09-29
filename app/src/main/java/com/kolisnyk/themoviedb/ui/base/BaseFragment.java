@@ -1,12 +1,11 @@
 package com.kolisnyk.themoviedb.ui.base;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 
 import com.kolisnyk.themoviedb.di.component.ActivityComponent;
@@ -15,7 +14,6 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment implements MvpView {
 
-    private ProgressDialog mProgressDialog;
     private BaseActivity mActivity;
     private Unbinder mUnBinder;
 
@@ -26,13 +24,13 @@ public abstract class BaseFragment extends Fragment implements MvpView {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setUp(view);
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof BaseActivity) {
             BaseActivity activity = (BaseActivity) context;
@@ -41,32 +39,7 @@ public abstract class BaseFragment extends Fragment implements MvpView {
         }
     }
 
-//    @Override
-//    public void showLoading() {
-//        hideLoading();
-//        //mProgressDialog = CommonUtils.showLoadingDialog(this.getContext());
-//    }
-//
-//    @Override
-//    public void hideLoading() {
-//        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-//            mProgressDialog.cancel();
-//        }
-//    }
-//
-//    @Override
-//    public void onError(String message) {
-//        if (mActivity != null) {
-//            mActivity.onError(message);
-//        }
-//    }
-//
-//    @Override
-//    public void onError(@StringRes int resId) {
-//        if (mActivity != null) {
-//            mActivity.onError(resId);
-//        }
-//    }
+
 
     @Override
     public void showMessage(String message) {
@@ -75,20 +48,14 @@ public abstract class BaseFragment extends Fragment implements MvpView {
         }
     }
 
-//    @Override
-//    public void showMessage(@StringRes int resId) {
-//        if (mActivity != null) {
-//            mActivity.showMessage(resId);
-//        }
-//    }
-//
-//    @Override
-//    public boolean isNetworkConnected() {
-//        if (mActivity != null) {
-//            return mActivity.isNetworkConnected();
-//        }
-//        return false;
-//    }
+
+    @Override
+    public boolean isNetworkConnected() {
+        if (mActivity != null) {
+            return mActivity.isNetworkConnected();
+        }
+        return false;
+    }
 
     @Override
     public void onDetach() {
@@ -96,32 +63,20 @@ public abstract class BaseFragment extends Fragment implements MvpView {
         super.onDetach();
     }
 
-//    @Override
-//    public void hideKeyboard() {
-//        if (mActivity != null) {
-//            mActivity.hideKeyboard();
-//        }
-//    }
-//
-//    @Override
-//    public void openActivityOnTokenExpire() {
-//        if (mActivity != null) {
-//            mActivity.openActivityOnTokenExpire();
-//        }
-//    }
 
-    public ActivityComponent getActivityComponent() {
+
+    protected ActivityComponent getActivityComponent() {
         if (mActivity != null) {
             return mActivity.getActivityComponent();
         }
         return null;
     }
 
-    public BaseActivity getBaseActivity() {
+    protected BaseActivity getBaseActivity() {
         return mActivity;
     }
 
-    public void setUnBinder(Unbinder unBinder) {
+    protected void setUnBinder(Unbinder unBinder) {
         mUnBinder = unBinder;
     }
 
@@ -135,6 +90,7 @@ public abstract class BaseFragment extends Fragment implements MvpView {
         super.onDestroy();
     }
 
+    @SuppressWarnings("unused")
     public interface Callback {
 
         void onFragmentAttached();

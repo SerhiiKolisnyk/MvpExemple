@@ -5,7 +5,6 @@ import android.util.Log;
 import com.kolisnyk.themoviedb.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
-import javax.net.ssl.HttpsURLConnection;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -61,11 +60,11 @@ public class BasePresenter <V extends MvpView, I extends MvpInteractor>
         if (!isViewAttached()) throw new MvpViewNotAttachedException();
     }
 
-    public SchedulerProvider getSchedulerProvider() {
+    protected SchedulerProvider getSchedulerProvider() {
         return mSchedulerProvider;
     }
 
-    public CompositeDisposable getCompositeDisposable() {
+    protected CompositeDisposable getCompositeDisposable() {
         return mCompositeDisposable;
     }
 
@@ -75,8 +74,8 @@ public class BasePresenter <V extends MvpView, I extends MvpInteractor>
     }
 
 
-    public static class MvpViewNotAttachedException extends RuntimeException {
-        public MvpViewNotAttachedException() {
+    static class MvpViewNotAttachedException extends RuntimeException {
+        MvpViewNotAttachedException() {
             super("Please call Presenter.onAttach(MvpView) before" +
                     " requesting data to the Presenter");
         }

@@ -10,7 +10,7 @@ import io.reactivex.Single;
 
 public class DetailInteractor extends BaseInteractor implements  DetailMvpInteractor {
     @Inject
-    public DetailInteractor(DataManager dataManager) {
+    DetailInteractor(DataManager dataManager) {
         super(dataManager);
     }
 

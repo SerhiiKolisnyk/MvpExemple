@@ -79,6 +79,8 @@ public class PopularFragment extends BaseFragment implements PopularMvpView, Pop
         popularAdapter.setMovieList(movieList);
     }
 
+
+
     @Override
     public void onClick(int id) {
         mPresenter.onDrawerDetailClick(id);

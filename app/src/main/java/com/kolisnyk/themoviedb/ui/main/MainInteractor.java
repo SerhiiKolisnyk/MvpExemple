@@ -8,7 +8,7 @@ import javax.inject.Inject;
 public class MainInteractor extends BaseInteractor
         implements MainMvpInteractor{
     @Inject
-    public MainInteractor(DataManager dataManager) {
+    MainInteractor(DataManager dataManager) {
         super(dataManager);
     }
 }

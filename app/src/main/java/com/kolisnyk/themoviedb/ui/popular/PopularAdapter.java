@@ -17,6 +17,7 @@ import com.kolisnyk.themoviedb.di.qualifier.ApiInfo;
 import com.kolisnyk.themoviedb.ui.base.BaseViewHolder;
 import com.kolisnyk.themoviedb.ui.base.EmptyViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -39,6 +40,7 @@ public class PopularAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
     }
 
     public PopularAdapter() {
+        movieList=new ArrayList<>(1);
     }
 
     @NonNull
@@ -60,12 +62,12 @@ public class PopularAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         holder.onBind(position);
-
     }
+
 
     @Override
     public int getItemCount() {
-        if (movieList != null && movieList.size() > 0) {
+        if (movieList != null) {
             return movieList.size();
         } else {
             return 1;

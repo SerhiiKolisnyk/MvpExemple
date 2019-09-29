@@ -2,24 +2,15 @@ package com.kolisnyk.themoviedb.ui.main;
 
 import android.os.Bundle;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.kolisnyk.themoviedb.R;
@@ -29,11 +20,9 @@ import com.kolisnyk.themoviedb.ui.popular.PopularFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
-import android.widget.TextView;
 
 import javax.inject.Inject;
 
@@ -46,7 +35,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @Inject
     MainMvpPresenter<MainMvpView, MainMvpInteractor> mPresenter;
 
-    private AppBarConfiguration mAppBarConfiguration;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -57,8 +45,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
 
-
-    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +69,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     @Override
     protected void setUp() {
         setSupportActionBar(mToolbar);
-        mDrawerToggle = new ActionBarDrawerToggle(
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 mDrawer,
                 mToolbar,
@@ -108,19 +94,16 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
     void setupNavMenu() {
         ( (NavigationView) findViewById(R.id.nav_view)).setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        mDrawer.closeDrawer(GravityCompat.START);
-                        switch (item.getItemId()) {
-                            case R.id.nav_gallery:
-                                showPopularFragmentFragment();
-                                return true;
-                            case R.id.nav_slideshow:
-                                return true;
-                            default:
-                                return false;
-                        }
+                item -> {
+                    mDrawer.closeDrawer(GravityCompat.START);
+                    switch (item.getItemId()) {
+                        case R.id.nav_gallery:
+                            showPopularFragmentFragment();
+                            return true;
+                        case R.id.nav_slideshow:
+                            return true;
+                        default:
+                            return false;
                     }
                 });
     }

@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +15,8 @@ import com.kolisnyk.themoviedb.R;
 import com.kolisnyk.themoviedb.data.network.model.MovieDetailResponse;
 import com.kolisnyk.themoviedb.di.component.ActivityComponent;
 import com.kolisnyk.themoviedb.ui.base.BaseFragment;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -76,8 +76,8 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
         }
-        getBaseActivity().getSupportActionBar().hide();
-        ;
+        Objects.requireNonNull(getBaseActivity().getSupportActionBar()).hide();
+
         return view;
     }
 
@@ -100,7 +100,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
         }
         emptyView.setVisibility(View.GONE);
         linearLayoutContent.setVisibility(View.VISIBLE);
-        Glide.with(getContext())
+        Glide.with(Objects.requireNonNull(getContext()))
                 .load(BASE_URL_IMG + movieDetailResponse.getThumbPath())
                 .centerInside()
                 .into(imgPoster);
@@ -129,8 +129,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
 
     @Override
     public void onDetach() {
-        getBaseActivity().getSupportActionBar().show();
-        ;
+        Objects.requireNonNull(getBaseActivity().getSupportActionBar()).show();
         super.onDetach();
 
     }

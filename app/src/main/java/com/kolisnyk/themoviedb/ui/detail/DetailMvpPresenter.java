@@ -1,7 +1,6 @@
 package com.kolisnyk.themoviedb.ui.detail;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.kolisnyk.themoviedb.ui.base.MvpPresenter;
 

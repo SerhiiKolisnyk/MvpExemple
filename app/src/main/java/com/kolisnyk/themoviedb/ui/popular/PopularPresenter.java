@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.kolisnyk.themoviedb.data.network.model.MovieListResponse;
 import com.kolisnyk.themoviedb.ui.base.BasePresenter;
+import com.kolisnyk.themoviedb.utils.NetworkUtils;
 import com.kolisnyk.themoviedb.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
@@ -22,30 +23,26 @@ public class PopularPresenter<V extends PopularMvpView, I extends PopularMvpInte
 
     @Override
     public void onViewPrepared() {
+        if (!getMvpView().isNetworkConnected()){
+            getMvpView().showMessage("No internet connection");
+            getMvpView().updateList(null);
+            return;
+        }
         getCompositeDisposable().add(getInteractor()
                 .getPopularMovies()
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<MovieListResponse>() {
-                    @Override
-                    public void accept(@NonNull MovieListResponse movieListResponse)
-                            throws Exception {
-                        if (movieListResponse != null) {
-                            getMvpView().updateList(movieListResponse.getResults());
-                        }
+                .subscribe(movieListResponse -> {
+                    if (movieListResponse != null) {
+                        getMvpView().updateList(movieListResponse.getResults());
+                    }
 
+                }, throwable -> {
+                    if (!isViewAttached()) {
+                        return;
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable)
-                            throws Exception {
-                        if (!isViewAttached()) {
-                            return;
-                        }
-                        // handle the error here
-                        getMvpView().showMessage("No internet connection");
-                        getMvpView().updateList(null);
-                    }
+                    // handle the error here
+                    getMvpView().showMessage(NetworkUtils.handleApiError(throwable));
                 }));
     }
 
