@@ -7,4 +7,6 @@ public interface PopularMvpPresenter <V extends PopularMvpView, I extends Popula
         extends MvpPresenter<V, I> {
 
     void onViewPrepared();
+    void onDrawerDetailClick(int idOfFilm);
+
 }

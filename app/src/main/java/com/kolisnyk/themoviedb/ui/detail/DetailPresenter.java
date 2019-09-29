@@ -1,56 +1,49 @@
-package com.kolisnyk.themoviedb.ui.popular;
+package com.kolisnyk.themoviedb.ui.detail;
 
-import android.util.Log;
+import androidx.annotation.NonNull;
 
+import com.kolisnyk.themoviedb.data.network.model.MovieDetailResponse;
 import com.kolisnyk.themoviedb.data.network.model.MovieListResponse;
 import com.kolisnyk.themoviedb.ui.base.BasePresenter;
 import com.kolisnyk.themoviedb.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
 
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 
-public class PopularPresenter<V extends PopularMvpView, I extends PopularMvpInteractor>
-        extends BasePresenter<V, I> implements PopularMvpPresenter<V, I> {
-    private static final String TAG="PopularPresenter";
+public class DetailPresenter <V extends DetailMvpView, I extends DetailMvpInteractor>
+        extends BasePresenter<V, I> implements DetailMvpPresenter<V, I>{
+
     @Inject
-    public PopularPresenter(I mvpInteractor, SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable) {
+    public DetailPresenter(I mvpInteractor, SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable) {
         super(mvpInteractor, schedulerProvider, compositeDisposable);
     }
 
     @Override
-    public void onViewPrepared() {
+    public void onViewPrepared(@NonNull int idOfFilm) {
         getCompositeDisposable().add(getInteractor()
-                .getPopularMovies()
+                .getMovieDetailResponse(idOfFilm)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<MovieListResponse>() {
+                .subscribe(new Consumer<MovieDetailResponse>() {
                     @Override
-                    public void accept(@NonNull MovieListResponse movieListResponse)
+                    public void accept(@io.reactivex.annotations.NonNull MovieDetailResponse movieDetailResponse)
                             throws Exception {
-                        if (movieListResponse != null) {
-                            getMvpView().updateList(movieListResponse.getResults());
-                        }
+                        getMvpView().updateInfo(movieDetailResponse);
 
                     }
                 }, new Consumer<Throwable>() {
                     @Override
-                    public void accept(@NonNull Throwable throwable)
+                    public void accept(@io.reactivex.annotations.NonNull Throwable throwable)
                             throws Exception {
                         if (!isViewAttached()) {
                             return;
                         }
                         // handle the error here
                         getMvpView().showMessage("No internet connection");
-                        getMvpView().updateList(null);
+                        getMvpView().updateInfo(null);
                     }
                 }));
-    }
-
-    @Override
-    public void onDrawerDetailClick(int idOfFilm) {
-        getMvpView().showDetailFragment(idOfFilm);
     }
 }

@@ -14,6 +14,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -22,6 +24,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.kolisnyk.themoviedb.R;
 import com.kolisnyk.themoviedb.ui.base.BaseActivity;
+import com.kolisnyk.themoviedb.ui.detail.DetailFragment;
 import com.kolisnyk.themoviedb.ui.popular.PopularFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -104,35 +107,50 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         mPresenter.onViewInitialized();
     }
     void setupNavMenu() {
-       /// View headerLayout = mNavigationView.getHeaderView(0);
-
-        Log.d(TAG, "setupNavMenu: ===============");
-
-        if (mNavigationView==null)throw new IllegalAccessError("mNavigationView==null");
         ( (NavigationView) findViewById(R.id.nav_view)).setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         mDrawer.closeDrawer(GravityCompat.START);
-                        Log.d(TAG, "onNavigationItemSelected: +++++++=====");
                         switch (item.getItemId()) {
                             case R.id.nav_gallery:
-                                Log.d(TAG, "nav_gallery: +++++++=====");
-
                                 showPopularFragmentFragment();
                                 return true;
                             case R.id.nav_slideshow:
-                                Log.d(TAG, "nav_slideshow: +++++++=====");
                                 return true;
                             default:
-                                Log.d(TAG, "setupNavMenu: default=====");
                                 return false;
                         }
                     }
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(DetailFragment.TAG);
+        if (fragment == null) {
+            super.onBackPressed();
+        } else {
+            onFragmentDetached(DetailFragment.TAG);
+        }
+    }
 
+    @Override
+    public void onFragmentDetached(String tag) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(tag);
+        if (fragment != null) {
+            Log.d(TAG, "onFragmentDetached: +++++++++++++++++++++++"+fragment.getTag());
+            fragmentManager
+                    .beginTransaction()
+                    .disallowAddToBackStack()
+                    .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                    .remove(fragment)
+                    .commitNow();
+            unlockDrawer();
+        }
+    }
 
     @Override
     public void closeNavigationDrawer() {
@@ -161,14 +179,14 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Override
     public void showPopularFragmentFragment() {
-        Log.d(TAG, "showPopularFragmentFragment: ");
         lockDrawer();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .disallowAddToBackStack()
+        getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .add(R.id.fragment_container, PopularFragment.newInstance(), PopularFragment.TAG)
+                .replace(R.id.fragment_container, PopularFragment.newInstance(), PopularFragment.TAG)
+                .addToBackStack(null)
                 .commit();
         unlockDrawer();
     }
+
+
 }

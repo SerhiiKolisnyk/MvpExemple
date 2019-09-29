@@ -3,6 +3,7 @@ package com.kolisnyk.themoviedb.data;
 import android.content.Context;
 
 import com.kolisnyk.themoviedb.data.network.RestApiHelper;
+import com.kolisnyk.themoviedb.data.network.model.MovieDetailResponse;
 import com.kolisnyk.themoviedb.data.network.model.MovieListResponse;
 import com.kolisnyk.themoviedb.di.qualifier.ApplicationContext;
 
@@ -24,5 +25,10 @@ public class DataManagerImpl implements DataManager {
     @Override
     public Single<MovieListResponse> getPopularMovies() {
         return mApiHelper.getPopularMovies();
+    }
+
+    @Override
+    public Single<MovieDetailResponse> getMovieDetailResponse(int idOfFilm) {
+        return mApiHelper.getMovieDetailResponse(idOfFilm);
     }
 }

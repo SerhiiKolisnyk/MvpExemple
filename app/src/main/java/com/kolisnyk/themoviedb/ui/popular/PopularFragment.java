@@ -16,6 +16,7 @@ import com.kolisnyk.themoviedb.data.network.model.Movie;
 import com.kolisnyk.themoviedb.data.network.model.MovieListResponse;
 import com.kolisnyk.themoviedb.di.component.ActivityComponent;
 import com.kolisnyk.themoviedb.ui.base.BaseFragment;
+import com.kolisnyk.themoviedb.ui.detail.DetailFragment;
 
 import java.util.List;
 
@@ -80,11 +81,23 @@ public class PopularFragment extends BaseFragment implements PopularMvpView, Pop
 
     @Override
     public void onClick(int id) {
-
+        mPresenter.onDrawerDetailClick(id);
     }
+
 
     @Override
     public void onRetry() {
         mPresenter.onViewPrepared();
     }
+
+    @Override
+    public void showDetailFragment(int idOfFilm) {
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .add(R.id.fragment_container, DetailFragment.newInstance(idOfFilm), DetailFragment.TAG)
+                .commit();
+    }
+
 }

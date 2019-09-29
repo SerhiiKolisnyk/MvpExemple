@@ -25,11 +25,13 @@ import javax.inject.Named;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.kolisnyk.themoviedb.data.network.NetworkService.BASE_URL_IMG;
+
 public class PopularAdapter extends RecyclerView.Adapter<BaseViewHolder> implements EmptyViewHolder.RetryCallback{
     private static final int VIEW_TYPE_EMPTY = 0;
     private static final int VIEW_TYPE_NORMAL = 1;
 
-    private static final String baseUr="https://image.tmdb.org/t/p/w200/";
+    private static final String baseUr=BASE_URL_IMG;
     private List<Movie> movieList;
     private PopularCallback callback;
     public PopularAdapter(List<Movie> movieList) {

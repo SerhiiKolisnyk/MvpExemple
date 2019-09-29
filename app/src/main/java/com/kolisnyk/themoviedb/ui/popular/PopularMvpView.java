@@ -10,4 +10,6 @@ import java.util.List;
 public interface PopularMvpView extends MvpView {
 
     void updateList(@Nullable List<Movie> movies);
+
+    void showDetailFragment(int idOfFilm);
 }

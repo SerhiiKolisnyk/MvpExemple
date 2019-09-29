@@ -7,6 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.kolisnyk.themoviedb.di.qualifier.ActivityContext;
 import com.kolisnyk.themoviedb.di.scope.ActivityScope;
+import com.kolisnyk.themoviedb.ui.detail.DetailInteractor;
+import com.kolisnyk.themoviedb.ui.detail.DetailMvpInteractor;
+import com.kolisnyk.themoviedb.ui.detail.DetailMvpPresenter;
+import com.kolisnyk.themoviedb.ui.detail.DetailMvpView;
+import com.kolisnyk.themoviedb.ui.detail.DetailPresenter;
 import com.kolisnyk.themoviedb.ui.main.MainInteractor;
 import com.kolisnyk.themoviedb.ui.main.MainMvpInteractor;
 import com.kolisnyk.themoviedb.ui.main.MainMvpPresenter;
@@ -90,5 +95,16 @@ public class ActivityModule {
     LinearLayoutManager provideLinearLayoutManager(AppCompatActivity activity) {
         return new LinearLayoutManager(activity);
     }
+    @Provides
+    @ActivityScope
+    DetailMvpInteractor provideAboutMvpInteractor(DetailInteractor interactor) {
+        return interactor;
+    }
+    @Provides
+    DetailMvpPresenter<DetailMvpView, DetailMvpInteractor> provideAboutPresenter(
+            DetailPresenter<DetailMvpView, DetailMvpInteractor> presenter) {
+        return presenter;
+    }
+
 }
 
