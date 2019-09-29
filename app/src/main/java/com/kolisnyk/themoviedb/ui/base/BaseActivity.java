@@ -49,22 +49,22 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(null);
+        super.attachBaseContext(newBase);
     }
 
 
-    @Override
-    public void showLoading() {
-        hideLoading();
-       // mProgressDialog = CommonUtils.showLoadingDialog(this);
-    }
-
-    @Override
-    public void hideLoading() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.cancel();
-        }
-    }
+//    @Override
+//    public void showLoading() {
+//        hideLoading();
+//       // mProgressDialog = CommonUtils.showLoadingDialog(this);
+//    }
+//
+//    @Override
+//    public void hideLoading() {
+//        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+//            mProgressDialog.cancel();
+//        }
+//    }
 
     private void showSnackBar(String message) {
         Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
@@ -76,19 +76,19 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
         snackbar.show();
     }
 
-    @Override
-    public void onError(String message) {
-        if (message != null) {
-            showSnackBar(message);
-        } else {
-            showSnackBar(getString(R.string.typical_error));
-        }
-    }
+//    @Override
+//    public void onError(String message) {
+//        if (message != null) {
+//            showSnackBar(message);
+//        } else {
+//            showSnackBar(getString(R.string.typical_error));
+//        }
+//    }
 
-    @Override
-    public void onError(@StringRes int resId) {
-        onError(getString(resId));
-    }
+//    @Override
+//    public void onError(@StringRes int resId) {
+//        onError(getString(resId));
+//    }
 
     @Override
     public void showMessage(String message) {
@@ -99,15 +99,15 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
         }
     }
 
-    @Override
-    public void showMessage(@StringRes int resId) {
-        showMessage(getString(resId));
-    }
-
-    @Override
-    public boolean isNetworkConnected() {
-        return NetworkUtils.isInternetConnected(getApplicationContext());
-    }
+//    @Override
+//    public void showMessage(@StringRes int resId) {
+//        showMessage(getString(resId));
+//    }
+//
+//    @Override
+//    public boolean isNetworkConnected() {
+//        return NetworkUtils.isInternetConnected(getApplicationContext());
+//    }
 
     @Override
     public void onFragmentAttached() {
@@ -128,11 +128,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
         }
     }
 
-    @Override
-    public void openActivityOnTokenExpire() {
-//        startActivity(LoginActivity.getStartIntent(this));
-//        finish();
-    }
+//    @Override
+//    public void openActivityOnTokenExpire() {
+////        startActivity(LoginActivity.getStartIntent(this));
+////        finish();
+//    }
 
     public void setUnBinder(Unbinder unBinder) {
         mUnBinder = unBinder;

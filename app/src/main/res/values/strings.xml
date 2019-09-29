@@ -14,4 +14,8 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="typical_error">Something is really bad.</string>
+
+    <!--Drawer-->
+    <string name="open_drawer">Drawer Open</string>
+    <string name="close_drawer">Drawer Close</string>
 </resources>
