@@ -16,6 +16,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.kolisnyk.themoviedb.R;
 import com.kolisnyk.themoviedb.ui.base.BaseActivity;
 import com.kolisnyk.themoviedb.ui.detail.DetailFragment;
+import com.kolisnyk.themoviedb.ui.favor.FavorFragment;
 import com.kolisnyk.themoviedb.ui.popular.PopularFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -101,6 +102,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                             showPopularFragmentFragment();
                             return true;
                         case R.id.nav_slideshow:
+                            showFavorFragment();
                             return true;
                         default:
                             return false;
@@ -171,5 +173,14 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         unlockDrawer();
     }
 
-
+    @Override
+    public void showFavorFragment() {
+        lockDrawer();
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .replace(R.id.fragment_container, FavorFragment.newInstance(), FavorFragment.TAG)
+                .addToBackStack(null)
+                .commit();
+        unlockDrawer();
+    }
 }

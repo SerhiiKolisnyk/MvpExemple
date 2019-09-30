@@ -3,6 +3,7 @@ package com.kolisnyk.themoviedb.di.component;
 import com.kolisnyk.themoviedb.di.module.ActivityModule;
 import com.kolisnyk.themoviedb.di.scope.ActivityScope;
 import com.kolisnyk.themoviedb.ui.detail.DetailFragment;
+import com.kolisnyk.themoviedb.ui.favor.FavorFragment;
 import com.kolisnyk.themoviedb.ui.main.MainActivity;
 import com.kolisnyk.themoviedb.ui.popular.PopularFragment;
 
@@ -17,4 +18,6 @@ public interface ActivityComponent {
     void inject(PopularFragment fragment);
 
     void inject(DetailFragment detailFragment);
+
+    void inject(FavorFragment favorFragment);
 }

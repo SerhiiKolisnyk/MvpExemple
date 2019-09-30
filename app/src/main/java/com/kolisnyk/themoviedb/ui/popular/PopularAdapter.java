@@ -13,22 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.kolisnyk.themoviedb.R;
 import com.kolisnyk.themoviedb.data.network.model.Movie;
-import com.kolisnyk.themoviedb.di.qualifier.ApiInfo;
 import com.kolisnyk.themoviedb.ui.base.BaseViewHolder;
-import com.kolisnyk.themoviedb.ui.base.EmptyViewHolder;
+import com.kolisnyk.themoviedb.ui.base.ErrorViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.kolisnyk.themoviedb.data.network.NetworkService.BASE_URL_IMG;
 
-public class PopularAdapter extends RecyclerView.Adapter<BaseViewHolder> implements EmptyViewHolder.RetryCallback{
+public class PopularAdapter extends RecyclerView.Adapter<BaseViewHolder> implements ErrorViewHolder.RetryCallback{
     private static final int VIEW_TYPE_EMPTY = 0;
     private static final int VIEW_TYPE_NORMAL = 1;
 
@@ -52,10 +48,10 @@ public class PopularAdapter extends RecyclerView.Adapter<BaseViewHolder> impleme
                         LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false));
             case VIEW_TYPE_EMPTY:
             default:
-                EmptyViewHolder emptyViewHolder=new EmptyViewHolder(
-                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty, parent, false));
-                emptyViewHolder.setRetryListener(this, null);
-                return emptyViewHolder;
+                ErrorViewHolder errorViewHolder =new ErrorViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_error, parent, false));
+                errorViewHolder.setRetryListener(this, null);
+                return errorViewHolder;
         }
     }
 

@@ -9,6 +9,7 @@ public interface MainMvpView extends MvpView {
     void showGalleryFragment();
 
     void showPopularFragmentFragment();
+    void showFavorFragment();
 
 
     void closeNavigationDrawer();

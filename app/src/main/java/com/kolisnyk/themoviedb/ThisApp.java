@@ -5,6 +5,8 @@ import android.app.Application;
 import com.kolisnyk.themoviedb.di.component.ApplicationComponent;
 import com.kolisnyk.themoviedb.di.component.DaggerApplicationComponent;
 import com.kolisnyk.themoviedb.di.module.ApplicationModule;
+import com.kolisnyk.themoviedb.di.module.NetModule;
+import com.kolisnyk.themoviedb.di.module.RealmModule;
 
 public class ThisApp extends Application {
     private ApplicationComponent mApplicationComponent;
@@ -14,7 +16,11 @@ public class ThisApp extends Application {
         super.onCreate();
 
         mApplicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this)).build();
+                .applicationModule(new ApplicationModule(this))
+                .netModule(new NetModule())
+                .realmModule(new RealmModule(this))
+
+                .build();
 
         mApplicationComponent.inject(this);
 

@@ -12,6 +12,13 @@ import com.kolisnyk.themoviedb.ui.detail.DetailMvpInteractor;
 import com.kolisnyk.themoviedb.ui.detail.DetailMvpPresenter;
 import com.kolisnyk.themoviedb.ui.detail.DetailMvpView;
 import com.kolisnyk.themoviedb.ui.detail.DetailPresenter;
+import com.kolisnyk.themoviedb.ui.favor.FavorAdapter;
+import com.kolisnyk.themoviedb.ui.favor.FavorFragment;
+import com.kolisnyk.themoviedb.ui.favor.FavorInteractor;
+import com.kolisnyk.themoviedb.ui.favor.FavorMvpInteractor;
+import com.kolisnyk.themoviedb.ui.favor.FavorMvpPresenter;
+import com.kolisnyk.themoviedb.ui.favor.FavorMvpView;
+import com.kolisnyk.themoviedb.ui.favor.FavorPresenter;
 import com.kolisnyk.themoviedb.ui.main.MainInteractor;
 import com.kolisnyk.themoviedb.ui.main.MainMvpInteractor;
 import com.kolisnyk.themoviedb.ui.main.MainMvpPresenter;
@@ -87,7 +94,7 @@ public class ActivityModule {
     }
 
     @Provides
-    PopularAdapter provideBlogAdapter() {
+    PopularAdapter providePopularAdapter() {
         return new PopularAdapter();
     }
 
@@ -97,13 +104,30 @@ public class ActivityModule {
     }
     @Provides
     @ActivityScope
-    DetailMvpInteractor provideAboutMvpInteractor(DetailInteractor interactor) {
+    DetailMvpInteractor provideDetailMvpInteractor(DetailInteractor interactor) {
         return interactor;
     }
     @Provides
-    DetailMvpPresenter<DetailMvpView, DetailMvpInteractor> provideAboutPresenter(
+    DetailMvpPresenter<DetailMvpView, DetailMvpInteractor> provideDetailMvpPresenter(
             DetailPresenter<DetailMvpView, DetailMvpInteractor> presenter) {
         return presenter;
+    }
+
+    @Provides
+    @ActivityScope
+    FavorMvpInteractor provideFavorMvpInteractor(FavorInteractor interactor) {
+        return interactor;
+    }
+    @Provides
+    FavorMvpPresenter<FavorMvpView, FavorMvpInteractor> provideFavorMvpPresenter(
+            FavorPresenter<FavorMvpView, FavorMvpInteractor> presenter) {
+        return presenter;
+    }
+
+
+    @Provides
+    FavorAdapter provideFavorAdapter() {
+        return new FavorAdapter();
     }
 
 }
