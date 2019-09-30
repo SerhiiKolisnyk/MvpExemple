@@ -9,10 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.bumptech.glide.Glide;
 import com.kolisnyk.themoviedb.R;
-import com.kolisnyk.themoviedb.data.network.model.MovieDetailResponse;
+import com.kolisnyk.themoviedb.data.db.model.MovieDetail;
 import com.kolisnyk.themoviedb.di.component.ActivityComponent;
 import com.kolisnyk.themoviedb.ui.base.BaseFragment;
 
@@ -55,6 +56,9 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
     @BindView(R.id.txt_rate)
     TextView txtRate;
 
+    @BindView(R.id.img_favor)
+    ImageView imgFavor;
+
 
     public static DetailFragment newInstance(int idOfFilm) {
         Bundle args = new Bundle();
@@ -92,7 +96,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
     }
 
     @Override
-    public void updateInfo(@Nullable MovieDetailResponse movieDetailResponse) {
+    public void updateInfo(@Nullable MovieDetail movieDetailResponse) {
         if (movieDetailResponse == null) {
             emptyView.setVisibility(View.VISIBLE);
             linearLayoutContent.setVisibility(View.GONE);
@@ -111,6 +115,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
         txtReleaseDate.setText(movieDetailResponse.getReleaseDate());
         if (movieDetailResponse.isAdult()) txtAdult.setVisibility(View.VISIBLE);
         else txtAdult.setVisibility(View.INVISIBLE);
+        mPresenter.getMvpView().onFavorDraw(movieDetailResponse.isFavor());
     }
 
     @OnClick(R.id.nav_back_btn)
@@ -125,6 +130,17 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
             bundle.getInt(KEY_ID_FILM, 0);
             mPresenter.onViewPrepared(bundle.getInt(KEY_ID_FILM, 0));
         }
+    }
+    @OnClick(R.id.img_favor)
+    void onAddClick() {
+        mPresenter.onFavorClick();
+    }
+
+    @Override
+    public void onFavorDraw(boolean favor) {
+        if (favor) imgFavor.setImageDrawable(AppCompatResources.getDrawable(getContext(),R.drawable.ic_favor_on));
+        else imgFavor.setImageDrawable(AppCompatResources.getDrawable(getContext(),R.drawable.ic_favor_off));
+
     }
 
     @Override

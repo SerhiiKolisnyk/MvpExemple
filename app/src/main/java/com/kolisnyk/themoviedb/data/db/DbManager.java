@@ -10,6 +10,7 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 @Singleton
 public class DbManager implements DbHelper {
@@ -23,7 +24,7 @@ public class DbManager implements DbHelper {
     @Override
     public Single<List<MovieDetail>> getFavorMovies() {
         return Single.fromCallable(() -> {
-            try(Realm realm = Realm.getDefaultInstance()) {
+            try (Realm realm = Realm.getDefaultInstance()) {
                 return realm.copyFromRealm(realm.where(MovieDetail.class).findAll());
             }
         });
@@ -52,5 +53,34 @@ public class DbManager implements DbHelper {
 //        },{
 //        })
 //        return null;
+    }
+
+    @Override
+    public void insert(MovieDetail movieDetail) {
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.insertOrUpdate(movieDetail);
+            }
+        });
+    }
+
+    @Override
+    public void delete(int id) {
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<MovieDetail> result = realm.where(MovieDetail.class).equalTo("id", id).findAll();
+                result.deleteAllFromRealm();
+            }
+        });
+    }
+
+    public Single<MovieDetail> getByID(int id) {
+        return Single.fromCallable(() -> {
+            try (Realm realm = Realm.getDefaultInstance()) {
+                return realm.copyFromRealm(realm.where(MovieDetail.class).equalTo("id", id).findAll().first());
+            }
+        });
     }
 }

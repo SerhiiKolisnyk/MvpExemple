@@ -9,4 +9,5 @@ public interface DetailMvpPresenter<V extends DetailMvpView, I extends DetailMvp
 
     void onViewPrepared(@NonNull int idOfFilm);
 
+    void onFavorClick();
 }

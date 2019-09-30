@@ -6,7 +6,8 @@ import com.kolisnyk.themoviedb.data.db.model.MovieDetail;
 import com.kolisnyk.themoviedb.data.network.model.MovieDetailResponse;
 
 public final class Mapper {
-    public static MovieDetail to(@NonNull MovieDetailResponse mdr) {
+    public static MovieDetail to( MovieDetailResponse mdr) {
+        if (mdr==null)return null;
         return new MovieDetail(
                 mdr.getId(),
                 mdr.getTitle(),

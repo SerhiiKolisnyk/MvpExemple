@@ -2,6 +2,7 @@ package com.kolisnyk.themoviedb.data;
 
 import android.content.Context;
 
+import com.kolisnyk.themoviedb.data.db.DbHelper;
 import com.kolisnyk.themoviedb.data.db.DbManager;
 import com.kolisnyk.themoviedb.data.db.model.MovieDetail;
 import com.kolisnyk.themoviedb.data.network.RestApiHelper;
@@ -18,14 +19,14 @@ import io.reactivex.Single;
 public class DataManagerImpl implements DataManager {
     private final Context mContext;
     private final RestApiHelper mApiHelper;
-    private final DbManager mDbManager;
+    private final DbHelper mDbHelper;
 
     @Inject
     public DataManagerImpl(@ApplicationContext Context context,
-                           RestApiHelper apiHelper,DbManager dbManager) {
+                           RestApiHelper apiHelper,DbHelper dbManager) {
         mContext = context;
         mApiHelper = apiHelper;
-        mDbManager = dbManager;
+        mDbHelper = dbManager;
     }
 
     @Override
@@ -40,6 +41,21 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public Single<List<MovieDetail>> getFavorMovies() {
-        return mDbManager.getFavorMovies();
+        return mDbHelper.getFavorMovies();
+    }
+
+    @Override
+    public void insert(MovieDetail movieDetail) {
+        mDbHelper.insert(movieDetail);
+    }
+
+    @Override
+    public void delete(int id) {
+        mDbHelper.delete(id);
+    }
+
+    @Override
+    public Single<MovieDetail> getByID(int id) {
+        return mDbHelper.getByID(id);
     }
 }

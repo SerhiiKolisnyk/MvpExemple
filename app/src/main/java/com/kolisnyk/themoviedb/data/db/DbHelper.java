@@ -8,4 +8,8 @@ import io.reactivex.Single;
 
 public interface DbHelper {
     Single<List<MovieDetail>> getFavorMovies();
+    void insert(MovieDetail movieDetail);
+    void delete(int id);
+
+    Single<MovieDetail> getByID(int id);
 }

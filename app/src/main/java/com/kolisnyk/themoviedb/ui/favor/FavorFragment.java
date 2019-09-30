@@ -60,7 +60,7 @@ public class FavorFragment extends BaseFragment implements FavorMvpView, FavorAd
 
     @Override
     public void onClick(int id) {
-        Toast.makeText(getContext(), "onClick", Toast.LENGTH_SHORT).show();
+       mPresenter.onDrawerDetailClick(id);
     }
 
     @Override
@@ -76,6 +76,12 @@ public class FavorFragment extends BaseFragment implements FavorMvpView, FavorAd
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
                 .add(R.id.fragment_container, DetailFragment.newInstance(idOfFilm), DetailFragment.TAG)
                 .commit();
+    }
+
+    @Override
+    public void onResume() {
+        mPresenter.onViewPrepared();
+        super.onResume();
     }
 
     @Override
