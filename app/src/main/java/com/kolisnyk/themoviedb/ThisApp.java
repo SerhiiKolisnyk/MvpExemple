@@ -24,12 +24,6 @@ public class ThisApp extends Application {
 
         mApplicationComponent.inject(this);
 
-
-//        AndroidNetworking.initialize(getApplicationContext());
-//        if (BuildConfig.DEBUG) {
-//            AndroidNetworking.enableLogging(Level.BODY);
-//        }
-
     }
 
     public ApplicationComponent getComponent() {

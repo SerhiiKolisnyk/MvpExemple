@@ -21,58 +21,12 @@ public class MainPresenter <V extends MainMvpView, I extends MainMvpInteractor>
         super(mvpInteractor, schedulerProvider, compositeDisposable);
     }
 
-//
-//        getCompositeDisposable().add(getInteractor().doLogoutApiCall()
-//                .subscribeOn(getSchedulerProvider().io())
-//                .observeOn(getSchedulerProvider().ui())
-//                .subscribe(new Consumer<LogoutResponse>() {
-//                    @Override
-//                    public void accept(LogoutResponse response) throws Exception {
-//                        if (!isViewAttached()) {
-//                            return;
-//                        }
-//
-//                        getInteractor().setUserAsLoggedOut();
-//                        getMvpView().hideLoading();
-//                        getMvpView().openLoginActivity();
-//                    }
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Exception {
-//                        if (!isViewAttached()) {
-//                            return;
-//                        }
-//
-//                        getMvpView().hideLoading();
-//
-//                        // handle the login error here
-//                        if (throwable instanceof ANError) {
-//                            ANError anError = (ANError) throwable;
-//                            handleApiError(anError);
-//                        }
-//                    }
-//                }));
+
 
 
 
     @Override
     public void onViewInitialized() {
-//        getCompositeDisposable().add(getInteractor()
-//                .getAllQuestions()
-//                .subscribeOn(getSchedulerProvider().io())
-//                .observeOn(getSchedulerProvider().ui())
-//                .subscribe(new Consumer<List<Question>>() {
-//                    @Override
-//                    public void accept(List<Question> questionList) throws Exception {
-//                        if (!isViewAttached()) {
-//                            return;
-//                        }
-//
-//                        if (questionList != null) {
-//                            getMvpView().refreshQuestionnaire(questionList);
-//                        }
-//                    }
-//                }));
     }
 
 
@@ -82,7 +36,6 @@ public class MainPresenter <V extends MainMvpView, I extends MainMvpInteractor>
         if (!isViewAttached()) {
             return;
         }
-       //todo update hello world
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.kolisnyk.themoviedb.data;
 import android.content.Context;
 
 import com.kolisnyk.themoviedb.data.db.DbHelper;
-import com.kolisnyk.themoviedb.data.db.DbManager;
 import com.kolisnyk.themoviedb.data.db.model.MovieDetail;
 import com.kolisnyk.themoviedb.data.network.RestApiHelper;
 import com.kolisnyk.themoviedb.data.network.model.MovieDetailResponse;

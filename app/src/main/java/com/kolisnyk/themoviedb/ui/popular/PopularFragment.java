@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kolisnyk.themoviedb.R;
 import com.kolisnyk.themoviedb.data.network.model.Movie;
-import com.kolisnyk.themoviedb.data.network.model.MovieListResponse;
 import com.kolisnyk.themoviedb.di.component.ActivityComponent;
 import com.kolisnyk.themoviedb.ui.base.BaseFragment;
 import com.kolisnyk.themoviedb.ui.detail.DetailFragment;

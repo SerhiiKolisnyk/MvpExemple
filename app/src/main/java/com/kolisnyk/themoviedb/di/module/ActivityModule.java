@@ -13,7 +13,6 @@ import com.kolisnyk.themoviedb.ui.detail.DetailMvpPresenter;
 import com.kolisnyk.themoviedb.ui.detail.DetailMvpView;
 import com.kolisnyk.themoviedb.ui.detail.DetailPresenter;
 import com.kolisnyk.themoviedb.ui.favor.FavorAdapter;
-import com.kolisnyk.themoviedb.ui.favor.FavorFragment;
 import com.kolisnyk.themoviedb.ui.favor.FavorInteractor;
 import com.kolisnyk.themoviedb.ui.favor.FavorMvpInteractor;
 import com.kolisnyk.themoviedb.ui.favor.FavorMvpPresenter;
@@ -33,7 +32,6 @@ import com.kolisnyk.themoviedb.ui.popular.PopularPresenter;
 import com.kolisnyk.themoviedb.utils.rx.AppSchedulerProvider;
 import com.kolisnyk.themoviedb.utils.rx.SchedulerProvider;
 
-import java.util.ArrayList;
 
 import dagger.Module;
 import dagger.Provides;

@@ -1,7 +1,5 @@
 package com.kolisnyk.themoviedb.data.mapper;
 
-import androidx.annotation.NonNull;
-
 import com.kolisnyk.themoviedb.data.db.model.MovieDetail;
 import com.kolisnyk.themoviedb.data.network.model.MovieDetailResponse;
 

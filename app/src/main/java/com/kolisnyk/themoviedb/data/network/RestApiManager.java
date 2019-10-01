@@ -8,9 +8,10 @@ import javax.inject.Singleton;
 
 import io.reactivex.Single;
 
+import static com.kolisnyk.themoviedb.data.network.NetworkService.API_KEY;
+
 @Singleton
 public class RestApiManager implements RestApiHelper {
-    private final String API_KEY="5f496cfa82123e175c0cdd43b1ff0ac2";
 
     NetworkService mService;
 

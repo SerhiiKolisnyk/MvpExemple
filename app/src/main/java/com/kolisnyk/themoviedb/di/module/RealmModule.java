@@ -14,7 +14,7 @@ import io.realm.RealmConfiguration;
 
 @Module
 public class RealmModule {
-    public RealmModule(Context context){
+    public RealmModule(Context context) {
         Realm.init(context);
     }
 
@@ -22,9 +22,9 @@ public class RealmModule {
     @Singleton
     Realm provideRealm(RealmConfiguration realmConfiguration) {
         Realm realm = null;
-        try{
+        try {
             realm = Realm.getDefaultInstance();
-        }catch (Exception e){
+        } catch (Exception e) {
             realm = Realm.getInstance(realmConfiguration);
         }
         return realm;
@@ -39,6 +39,7 @@ public class RealmModule {
                 .build();
         return config;
     }
+
     @Provides
     @Singleton
     DbHelper provideDbHelper(DbManager restApiManager) {

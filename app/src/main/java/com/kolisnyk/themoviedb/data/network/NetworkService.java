@@ -3,7 +3,6 @@ package com.kolisnyk.themoviedb.data.network;
 import com.kolisnyk.themoviedb.data.network.model.MovieDetailResponse;
 import com.kolisnyk.themoviedb.data.network.model.MovieListResponse;
 
-import java.util.List;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

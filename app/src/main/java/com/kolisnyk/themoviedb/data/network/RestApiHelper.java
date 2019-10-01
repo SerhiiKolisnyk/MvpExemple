@@ -8,6 +8,7 @@ import io.reactivex.Single;
 public interface RestApiHelper {
 
     Single<MovieListResponse> getPopularMovies();
+
     Single<MovieDetailResponse> getMovieDetailResponse(int idOfFilm);
 
 }

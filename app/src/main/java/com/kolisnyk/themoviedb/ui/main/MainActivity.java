@@ -3,7 +3,6 @@ package com.kolisnyk.themoviedb.ui.main;
 import android.os.Bundle;
 
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -126,7 +125,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
         if (fragment != null) {
-            Log.d(TAG, "onFragmentDetached: +++++++++++++++++++++++"+fragment.getTag());
             fragmentManager
                     .beginTransaction()
                     .disallowAddToBackStack()

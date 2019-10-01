@@ -1,17 +1,13 @@
 package com.kolisnyk.themoviedb.ui.popular;
 
-import android.util.Log;
 
-import com.kolisnyk.themoviedb.data.network.model.MovieListResponse;
 import com.kolisnyk.themoviedb.ui.base.BasePresenter;
 import com.kolisnyk.themoviedb.utils.NetworkUtils;
 import com.kolisnyk.themoviedb.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
 
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 
 public class PopularPresenter<V extends PopularMvpView, I extends PopularMvpInteractor>
         extends BasePresenter<V, I> implements PopularMvpPresenter<V, I> {

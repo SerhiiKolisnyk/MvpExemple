@@ -1,21 +1,15 @@
 package com.kolisnyk.themoviedb.ui.detail;
 
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kolisnyk.themoviedb.data.db.model.MovieDetail;
-import com.kolisnyk.themoviedb.data.mapper.Mapper;
-import com.kolisnyk.themoviedb.data.network.model.MovieDetailResponse;
 import com.kolisnyk.themoviedb.ui.base.BasePresenter;
 import com.kolisnyk.themoviedb.utils.rx.SchedulerProvider;
 
 import javax.inject.Inject;
-
-import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 
 public class DetailPresenter<V extends DetailMvpView, I extends DetailMvpInteractor>
         extends BasePresenter<V, I> implements DetailMvpPresenter<V, I> {
@@ -82,6 +76,5 @@ public class DetailPresenter<V extends DetailMvpView, I extends DetailMvpInterac
                 movieDetail.setFavor(true);
             }
         }
-//        if (movieDetailResponse != null) Mapper.to(movieDetail);
     }
 }
