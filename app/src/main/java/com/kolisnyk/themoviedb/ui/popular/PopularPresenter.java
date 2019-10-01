@@ -29,14 +29,12 @@ public class PopularPresenter<V extends PopularMvpView, I extends PopularMvpInte
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(movieListResponse -> {
-                    if (movieListResponse != null) {
                         getMvpView().updateList(movieListResponse.getResults());
-                    }
-
                 }, throwable -> {
                     if (!isViewAttached()) {
                         return;
                     }
+                    getMvpView().updateList(null);
                     // handle the error here
                     getMvpView().showMessage(NetworkUtils.handleApiError(throwable));
                 }));
